@@ -1,0 +1,84 @@
+h1{
+  text-align: center; 
+}
+#calculator {
+    width: 500px;
+    height: 450px; 
+    margin: 50px auto;
+    margin-top: 15px;
+    padding: 20px;
+    border: 3px solid #4a6272;
+    border-radius: 5px;
+    text-align: center; 
+    background-color: #71a8aa;
+  }
+  input {
+    width: 90%;
+    margin-bottom: 5%;
+    margin-top: 6%;
+    padding: 5px;
+    box-sizing: border-box; 
+    background-color: #5d788a; 
+    color: #fff;
+  }
+  #display {
+    color: #fff;
+    background-color: #4a6272;
+    border: 1px solid #ccc;
+    height: 40px;
+    border-radius: 10px; 
+    border-color: #71a8aa;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: left;
+    text-indent: 10px;
+    line-height: 3;
+  }
+  button {
+    /* width: 48px;  */
+    height: 30px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #4a6272; 
+    color: #ffffff; 
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  button:hover {
+    background-color: #2980b9; 
+  }
+  .firstRowBtns {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center;
+    justify-content: center;
+  }
+  .otherRows{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    justify-content: center;
+  }
+  #buttons{
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    display: grid;
+    gap: 5px;
+    padding-inline-end: 10px;
+  }
+  .lightBtn{
+    background-color: #507893; 
+  }
+  .calcBtn{
+    background-color: #ab582c; 
+  }

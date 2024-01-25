@@ -3,83 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" type="text/css" href="calc.css"> -->
+  <script src="calc.js"></script>
+  <link rel="stylesheet" type="text/css" href="calc.css">
   <title>My Calculator</title>
   <h1>My Calculator</h1>
 </head>
 <body>
-<style>
-  h1{
-    text-align: center; 
-  }
-  #calculator {
-      width: 300px;
-      height: 250px; 
-      margin: 50px auto;
-      margin-top: 15px;
-      padding: 10px;
-      border: 3px solid #4a6272;
-      border-radius: 5px;
-      text-align: center; 
-      background-color: #71a8aa;
-    }
-    input {
-      width: 90%;
-      margin-bottom: 5%;
-      margin-top: 6%;
-      padding: 5px;
-      box-sizing: border-box; 
-      background-color: #5d788a; 
-      color: #fff;
-    }
-    #display::placeholder {
-      color: #fff;
-    }
-    button {
-      width: 48px; 
-      height: 30px;
-      margin: 5px;
-      cursor: pointer;
-      background-color: #4a6272; 
-      color: #ffffff; 
-      border: none;
-      border-radius: 10px;
-    }
-    button:hover {
-      background-color: #2980b9; 
-    }
-    #buttons{
-      margin-top: -5px;
-    }
-    #calcBtn{
-      width: 80px; 
-    }
-</style>
 <div id="calculator">
-  <input type="text" id="display" disabled placeholder="Enter expression...">
+  <div id="display">Enter expression...</div>
+  <!-- <input type="text" id="display" placeholder="Enter expression..."> -->
   <br>
   <div id="buttons">  
-    <button onclick="appendToDisplay('1')">1</button>
-    <button onclick="appendToDisplay('2')">2</button>
-    <button onclick="appendToDisplay('3')">3</button>
-    <button onclick="clearDisplay()">C</button>
-    <button onclick="appendToDisplay('4')">4</button>
-    <button onclick="appendToDisplay('5')">5</button>
-    <button onclick="appendToDisplay('6')">6</button>
-    <button onclick="appendToDisplay('+')">+</button>
-    <button onclick="appendToDisplay('7')">7</button>
-    <button onclick="appendToDisplay('8')">8</button>
-    <button onclick="appendToDisplay('9')">9</button>
-    <button onclick="appendToDisplay('-')">-</button>
-    <button onclick="appendToDisplay('.')">.</button>
-    <button onclick="appendToDisplay('0')">0</button>
-    <button onclick="appendToDisplay('*')">X</button>
-    <button onclick="appendToDisplay('/')">/</button>
-    <button onclick="calculate()" id="calcBtn">=</button>
+    <div class="firstRowBtns">
+      <button onclick="">MC</button>
+      <button onclick="">MR</button>
+      <button onclick="">M+</button>
+      <button onclick="">M-</button>
+      <button onclick="">MS</button>
+      <button onclick="">M*</button>
+    </div>
+    <div class="otherRows">
+      <button onclick="secondFunction()">2nd</button>
+      <button onclick="appendToDisplay('π')">π</button>
+      <button onclick="appendToDisplay('e')">e</button>
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="deleteLast()">delete</button>
+      <button onclick="multiply()">x²</button>
+      <button onclick="fraction()">1/x</button>
+      <button onclick="abs()">|x|</button>
+      <button onclick="appendToDisplay('e**')">exp</button>
+      <button onclick="appendToDisplay('mod')">mod</button>
+      <button onclick="sqrt()">√</button>
+      <button onclick="appendParenthesis('left')">(</button>
+      <button onclick="appendParenthesis('right')">)</button>
+      <button onclick="factorial()">n!</button>
+      <button onclick="appendToDisplay('/')">÷</button>
+      <button onclick="appendToDisplay('')">x^y</button>
+      <button class="lightBtn" onclick="appendToDisplay('7')">7</button>
+      <button class="lightBtn" onclick="appendToDisplay('8')">8</button>
+      <button class="lightBtn" onclick="appendToDisplay('9')">9</button>
+      <button onclick="appendToDisplay('*')">X</button>
+      <button onclick="tenTimesX()">10^x</button>
+      <button class="lightBtn" onclick="appendToDisplay('4')">4</button>
+      <button class="lightBtn" onclick="appendToDisplay('5')">5</button>
+      <button class="lightBtn" onclick="appendToDisplay('6')">6</button>
+      <button onclick="appendToDisplay('-')">-</button>
+      <button onclick="log()">log</button>
+      <button class="lightBtn" onclick="appendToDisplay('1')">1</button>
+      <button class="lightBtn" onclick="appendToDisplay('2')">2</button>
+      <button class="lightBtn" onclick="appendToDisplay('3')">3</button>
+      <button onclick="appendToDisplay('+')">+</button>
+      <button onclick="ln()">ln</button>
+      <button class="lightBtn" onclick="negativePositive()">+/-</button>
+      <button class="lightBtn" onclick="appendToDisplay('0')">0</button>
+      <button class="lightBtn" onclick="appendToDisplay('.')">.</button>
+      <button class="calcBtn" onclick="calculate()">=</button>
+    </div>
   </div>
 </div>
 
-    <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code -->
+    <!-- special scripts for integration in MTW gallery - must be placed at the bottom of the HTML after your code
     <script>
       function clearDisplay() {
         document.getElementById('display').value = '';
@@ -121,6 +104,6 @@
       })
 
   </script>
-  <script src="https://morethanwallet.com/appstore/index.js"></script>
+  <script src="https://morethanwallet.com/appstore/index.js"></script> -->
 </body>
 </html>
