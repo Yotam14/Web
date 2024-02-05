@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTC/USD Prices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div id="app" class="max-w-[1000px] mx-auto">
+      <h1 class="font-bold text-3xl text-center text-blue-600 my-4">
+        Cryptocurrency Data
+      </h1>
+    </div>
+    <script>
+      const createTable = (v) => `<table class="table-auto w-full">${v}</table>`   
+      const tbl = document.createElement("table");
+      const tblBody = document.createElement("tbody");
+      const csvData = []
+      const csvToTable = (data) => {
+
+        // this will return each line as an individual String
+        // loop through the lines and return an array of individual
+        // Strings within the line that are separated by a comma
+        const csvData = JSON.parse(data)
+        // check the data
+        console.log(csvData)
+        Object.keys(csvData).forEach(key => {
+          const crypto = csvData[key];
+          makeTable(crypto);
+        });
+        tbl.appendChild(tblBody);
+        document.body.appendChild(tbl);
+        tbl.setAttribute("border", "2");
+        ///////////////////////////////////////////////////////////////
+        // here the csvData 2D array must be converted into html table
+        ///////////////////////////////////////////////////////////////
+      }
+
+      function makeTable(coin){
+        const row = document.createElement("tr");
+
+        // Adding styles directly in HTML
+        row.style.borderBottom = "1px solid #ddd"; // Border between rows
+
+        const cell = document.createElement("td");
+        const imgCell = document.createElement("td");
+        const idCell = document.createElement("td");
+        const nameCell = document.createElement("td");
+        const descCell = document.createElement("td");
+
+        // Adding styles directly in HTML
+        imgCell.style.paddingRight = "14px"; // Adding space between image and ID
+        idCell.style.paddingRight = "10px";  // Adding space between ID and Name
+        nameCell.style.paddingRight = "10px";
+
+        const imgElement = document.createElement("img");
+        imgElement.src = coin.image;
+        imgElement.alt = coin.name; 
+        imgElement.style.width = "150px"; // Making the image smaller
+
+        const idText = document.createTextNode(coin.id);
+        const nameText = document.createTextNode(coin.name);
+        const descText = document.createTextNode(coin.summary);
+
+        imgCell.appendChild(imgElement);
+        idCell.appendChild(idText);
+        nameCell.appendChild(nameText);
+        descCell.appendChild(descText);
+
+        row.appendChild(imgCell);
+        row.appendChild(idCell);
+        row.appendChild(nameCell);
+        row.appendChild(descCell);
+        tblBody.appendChild(row);
+      }
+
+      const url = "https://api.mtw-testnet.com/assets/all"
+      fetch(url) 
+        .then((response) => {
+          console.log(response)
+          return response.text()
+        })
+        .then((v) => csvToTable(v))
+        .catch((err) => console.log(err))
+    </script>
+  </body>
+</html>
