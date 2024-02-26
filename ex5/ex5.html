@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JQuery - example</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        const cell = (value,isHead) => {
+            return $(isHead ? '<th/>' : '<td/>').addClass("border border-gray-300 p-2 text-wrap").text(value)
+        }
+        const row = (values,isHead) => {
+            return $('<tr/>').append(values.map(value => cell(value,isHead)))
+        }
+        const createTable = (data) => {
+            const table = $('<table/>').addClass("border border-gray-300 w-full")
+            table.append(row(["Name","Website","Summary"],true))
+            Object.values(data).forEach(asset => {
+                table.append(row([asset.name,asset.website,asset.summary]))
+            })
+            return table
+        }
+      $(document).ready(function () {
+        fetch("https://api.mtw-testnet.com/assets/all")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data)
+            const tb = createTable(data)
+            $('#myTable').append(tb) 
+          })
+      })
+    </script>
+  </head>
+  <body>
+    <div class="w-[1000px] mx-auto border border-gray-300 p-4 m-4">
+      <h1 class="text-2xl font-bold">JQuery - example</h1>
+      <div id="myTable"></div>
+    </div>
+  </body>
+</html>
